@@ -6,26 +6,21 @@
 	var abi=[
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "delegate",
+		"inputs": [],
+		"name": "doPayment",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "winningProposal",
+		"name": "getCreator",
 		"outputs": [
 			{
-				"name": "_winningProposal",
-				"type": "uint8"
+				"name": "",
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -34,13 +29,8 @@
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "toVoter",
-				"type": "address"
-			}
-		],
-		"name": "giveRightToVote",
+		"inputs": [],
+		"name": "kill",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -50,30 +40,61 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "toProposal",
-				"type": "uint8"
+				"name": "num",
+				"type": "uint256"
 			}
 		],
-		"name": "vote",
+		"name": "setMyNumber",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "getNumber",
+		"outputs": [
 			{
-				"name": "_numProposals",
-				"type": "uint8"
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "message",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "returnValue",
+				"type": "string"
+			}
+		],
+		"name": "PaymentEvent",
+		"type": "event"
 	}
 ];
 
-var address = "0x719CDFb2cF229baA7c6AB31027299F866b0013E6";
+var address = "0x0De4cdE77f96Debb53f96361d15452313aFA752B";
 
 function paymentExample() {
 	web3.eth.getAccounts(function(error, acc) {
