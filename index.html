@@ -1,43 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<script language="JavaScript">
 
-    <script type="text/javascript">
-	
-window.addEventListener('load', function() {
-  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-  if (typeof web3 !== 'undefined') {
-    // Now you can start your app & access web3 freely:
-	alert('Web3 detected!');
-  } else {
-      alert('Please install Metamask and then try again!')
+web3.version.getNetwork(function (err, netId) {
+  switch (netId) {
+    case "1":
+      console.log('This is mainnet')
+      Break
+    case "2":
+      console.log('This is the deprecated Morden test network.')
+      Break
+    case "3":
+      console.log('This is the ropsten test network.')
+      Break
+    case "4":
+      console.log('This is the Rinkeby test network.')
+      Break
+    case "42":
+      console.log('This is the Kovan test network.')
+      break
+    default:
+      console.log('This is an unknown network.')
   }
-})
-  
-function getBalance() {
-   var address, wei, balance
-   address = document.getElementById("address").value
-   try {
-      web3.eth.getBalance(address, function (error, wei) {
-        if (!error) {
-          var balance = web3.fromWei(wei, 'ether');
-          document.getElementById("output").innerHTML = balance + " ETH";
-         }
-      });
-     } catch (err) {
-          document.getElementById("output").innerHTML = err;
-     }
- }
-    </script>
-</head>
-<body>
-    <h1>ETH Balance Fetcher</h1>
-    <p>Enter your Ethereum Address:</p>
-    <input type="text" size="50" id="address" />
-    <button type="button" onClick="getBalance();">Get Balance</button>
-    <br />
-    <br />
-    <div id="output"></div>
-</body>
-</html>
+});
+
+web3.eth.getAccounts(function (err, acc){
+    if(err){		
+        console.log('error.............',err);
+    }	
+    console.log("My account="+acc[0]);	
+	
+	web3.eth.getBalance(acc[0],function (err, bal){
+		if(err){		
+			console.log('error.............',err);
+		}	
+		console.log("My balance="+ web3.fromWei(bal, 'ether'));	
+	});	
+	
+});
+
+</script>
+
+</BODY>
+</HTML>
