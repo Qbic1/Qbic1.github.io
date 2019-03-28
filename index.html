@@ -1,49 +1,49 @@
-<HTML>
-<HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-<TITLE></TITLE>
-</HEAD>
-<BODY>
-<script language="JavaScript">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+	var abi=[
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "doPayment",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	...
+];
 
-web3.version.getNetwork(function (err, netId) {
-  switch (netId) {
-    case "1":
-      console.log('This is mainnet')
-      Break
-    case "2":
-      console.log('This is the deprecated Morden test network.')
-      Break
-    case "3":
-      console.log('This is the ropsten test network.')
-      Break
-    case "4":
-      console.log('This is the Rinkeby test network.')
-      Break
-    case "42":
-      console.log('This is the Kovan test network.')
-      break
-    default:
-      console.log('This is an unknown network.')
-  }
-});
+var address = "0x3e577F17d1004bE000805b9acBD688Aa120D95d5";
 
-web3.eth.getAccounts(function (err, acc){
-    if(err){		
-        console.log('error.............',err);
-    }	
-    console.log("My account="+acc[0]);	
-	
-	web3.eth.getBalance(acc[0],function (err, bal){
-		if(err){		
-			console.log('error.............',err);
-		}	
-		console.log("My balance="+ web3.fromWei(bal, 'ether'));	
-	});	
-	
-});
-
+function paymentExample() {
+	web3.eth.getAccounts(function(error, acc) {
+		defaultAccount=acc[0];
+		console.log(acc);
+		console.log("defaultAccount="+defaultAccount);
+		contract = web3.eth.contract(abi).at(address);
+		console.log(contract);
+		sum = document.getElementById("sum").value;
+		sum = web3.toWei(sum, 'ether');
+		contract.doPayment.sendTransaction(
+			{		
+			from: defaultAccount, 				
+			value: sum 
+			}, 
+			function(error, data) {
+				 if(error!=null) console.log(error);
+                       console.log("Data="+data);
+                });
+	});
+}
 </script>
-
-</BODY>
-</HTML>
+</head>
+<body>
+    <h1>ETH call payment function</h1>
+    <p>Payment sum (ETH):</p>
+    <input type="text" size="50" id="sum" />
+    <button type="button" onClick="paymentExample();">pay</button>
+</body>
+</html>
