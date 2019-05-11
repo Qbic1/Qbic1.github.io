@@ -176,8 +176,11 @@ function pay() {
 		console.log("defaultAccount="+defaultAccount);
 		contract = web3.eth.contract(abi).at(address);
 		console.log(contract);
-		var bills = contract.getBills().call();
-		console.log(bills);
+		contract.bills.call(0, (error, result) => {
+		if (!error) {
+			console.log(result.name);
+		}
+		});
 	});
 }
 </script>
